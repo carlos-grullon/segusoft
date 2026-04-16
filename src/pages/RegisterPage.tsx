@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { register } from '../api/auth'
-import { setToken } from '../auth/token'
+import { setToken, setRole } from '../auth/token'
 
 type RoleName = 'Admin' | 'Client' | 'Agent'
 
@@ -22,6 +22,7 @@ export default function RegisterPage() {
     try {
       const res = await register({ email, password, firstName, lastName, roleName })
       setToken(res.token)
+      setRole(res.roleName)
       navigate('/me')
     } catch (err: any) {
       setError(err?.response?.data?.message ?? 'Registration failed')

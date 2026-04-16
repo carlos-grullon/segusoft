@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../api/auth'
-import { setToken } from '../auth/token'
+import { setToken, setRole } from '../auth/token'
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -17,6 +17,7 @@ export default function LoginPage() {
     try {
       const res = await login({ email, password })
       setToken(res.token)
+      setRole(res.roleName)
       navigate('/me')
     } catch (err: any) {
       setError(err?.response?.data?.message ?? 'Login failed')

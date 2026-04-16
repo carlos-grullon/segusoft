@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getMe, type MeResponse } from '../api/auth'
-import { clearToken } from '../auth/token'
+import { clearToken, clearRole } from '../auth/token'
 
 export default function MePage() {
   const navigate = useNavigate()
@@ -29,6 +29,7 @@ export default function MePage() {
         const status = err?.response?.status
         if (status === 401) {
           clearToken()
+          clearRole()
           navigate('/login', { replace: true })
           return
         }
@@ -44,6 +45,7 @@ export default function MePage() {
 
   function onLogout() {
     clearToken()
+    clearRole()
     navigate('/login')
   }
 

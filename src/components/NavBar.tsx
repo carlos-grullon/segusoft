@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { clearToken, getToken } from '../auth/token'
+import { clearToken, clearRole, getToken } from '../auth/token'
 
 export default function NavBar() {
   const navigate = useNavigate()
@@ -7,6 +7,7 @@ export default function NavBar() {
 
   function onLogout() {
     clearToken()
+    clearRole()
     navigate('/login')
   }
 
@@ -21,6 +22,16 @@ export default function NavBar() {
             <Link to="/" className="text-sm text-slate-600 hover:text-slate-900">
               Home
             </Link>
+            {token && (
+              <>
+                <Link to="/policies" className="text-sm text-slate-600 hover:text-slate-900">
+                  Pólizas
+                </Link>
+                <Link to="/claims" className="text-sm text-slate-600 hover:text-slate-900">
+                  Reclamos
+                </Link>
+              </>
+            )}
           </nav>
         </div>
 
